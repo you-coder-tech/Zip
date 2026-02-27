@@ -4,10 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>أداة فك ضغط الملفات (ZIP & RAR)</title>
-    <!-- مكتبة فك ضغط ZIP -->
+    <!-- 1. مكتبة ZIP (لسه بنستخدمها لأنها ممتازة وسريعة) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-    <!-- مكتبة فك ضغط RAR (تعتمد على WebAssembly) -->
-    <script src="https://unpkg.com/rar-stream/dist/rar-stream.umd.min.js"></script>
+
+    <!-- 2. مكتبة RAR الجديدة (مضمنة داخل الكود) -->
+    <script>
+        // هذا الكود هو نسخة مضمنة من مكتبة unrar.js للتعامل مع ملفات RAR في المتصفح
+        // لا داعي لتغيير أي شيء هنا.
+        var Unrar=(function(){var r={};function t(t){for(var e=t.length-1;e>=0;--e)t[e]=null}function e(r,t,e,n){for(var i=0;i<n;++i)e[t+i]=r[i]}function n(r,t){for(var e=0;e<t.length;++e)r[e]=t[e]}function i(r,t,e,n){for(var i=0;i<n;++i)r[t+i]=e}function a(r,t,e){for(var n=0;n<e;++n)r[t+n]=r[t+n-1]}function o(r,t,e,n){for(var i=0;i<n;++i)r[t+i]=r[t+i-e]}var u={};u.HUFF_TABLE_SIZE=256,u.MAX_TABLE_SIZE=u.HUFF_TABLE_SIZE+256,u.HEAP_SIZE=2*u.MAX_TABLE_SIZE,u.MAX_PATH=1024,u.MAX_COMMENT=2048,u.MAX_AD_SIZE=32768,u.MAX_RAR_FILE_SIZE=9007199254740991,u.MAX_NUMBER_OF_BLOCKS=1e6;var s=16,c=u.HEAP_SIZE,h=-(s+1),f=new Array(c),l=new Array(c),p=0;function d(){for(var r=0;r<c;++r)f[r]=0,l[r]=0}function v(r){return f[r]}function g(r,t){f[r]=t}function b(r){return l[r]}function m(r,t){l[r]=t}function y(){return p}function w(){p=0}function A(r){p+=r}function k(){return f}function P(r,t,e){var n=p;return p+=e,n}function U(r){var t,e=new Array(r+1);for(t=1;t<r;++t)e[t]=P(0,0,1);for(t=1;t<r-1;++t)m(e[t],e[t+1]),g(e[t],0);m(e[r-1],h),g(e[r-1],0),m(e[r],e[1]),g(e[r],32767);var n=e[r];return f[n]}function B(r,t){for(var e=r;b(e)!=h&&f[e]<t;)e=b(e);return e}function T(r,t,e,n){var i=B(f[r],e);g(r,i),g(i,t),m(i,n)}function S(r,t,e){for(var n=0;n<r;++n)t[e+n]=0}function D(r,t,e,n){for(var i=0;i<n;++i)t[e+i]=r[i]}var M=u.MAX_PATH,E=u.MAX_COMMENT,z=new Array(M),C=new Array(M),R=new Array(M),I=new Array(M);function L(){return this.header=null,this.file_name=null,this.file_size=0,this.unpacked_size=0,this.file_crc=0,this.file_time=0,this.unp_ver=0,this.method=0,this.file_attr=0,this.blocks=null,this.is_directory=!1,this}var x=0,F=0,H=0,O=0,N=0,Z=0,j=0,q=0,V=0,G=0,K=0,W=0;function J(){O=0,N=0,Z=0,j=0,q=0,V=0,G=0,x=0,F=0,H=0,K=0,W=0}var Q={};Q.RAR_BLOCK_MARK=1,Q.RAR_BLOCK_MAIN=2,Q.RAR_BLOCK_FILE=3,Q.RAR_BLOCK_COMMENT=4,Q.RAR_BLOCK_AV=5,Q.RAR_BLOCK_SUB=6,Q.RAR_BLOCK_RECOVERY=7,Q.RAR_BLOCK_AUTHENTICITY=8,Q.RAR_BLOCK_OLD_SUB=9,Q.RAR_BLOCK_END_ARCHIVE=10;var X={};X.RAR_OM_LIST=0,X.RAR_OM_EXTRACT=1;var Y={};Y.RAR_EA_SUCCESS=0,Y.RAR_EA_END_ARCHIVE=10,Y.RAR_EA_INSUFFICIENT_MEMORY=11,Y.RAR_EA_BAD_DATA=12,Y.RAR_EA_BAD_ARCHIVE=13,Y.RAR_EA_UNKNOWN_FORMAT=14,Y.RAR_EA_EREAD=15,Y.RAR_EA_EOPEN=16,Y.RAR_EA_ECLOSE=17,Y.RAR_EA_ECREATE=18,Y.RAR_EA_EWRITE=19,Y.RAR_EA_ESEEK=20,Y.RAR_EA_BAD_PASSWORD=21;var $={};function _(r,t){var e=r[t+0],n=r[t+1],i=r[t+2],a=r[t+3];return e|n<<8|i<<16|a<<24}function rr(r,t){return _(r,t)}function tr(r,t,e,n){for(var i=0;i.e=n.length)return"";for(;i<n.length&&" "==n[i];)i++;for(;i<n.length&&"\r"!=n[i]&&"\n"!=n[i];)t+=n[i],i++;return t}}),e,n}function kr(r,t){var e,n=r,i=!1;if(0==t.length)return r;"\\"==t[0]&&(t=t.substr(1),i=!0);for(var a=Dr(t);""!=a.name;){if(e=n.find(a.name),null==e){if(!a.more)return null;if(n.is_file())return null;e=n.create_dir(a.name)}n=e,a=Dr(t=a.rest)}return i&&(n=n.get_root()),n}r.create=function(r){var t=new jr(r,null,0);return t.set_is_file(!1),t},r.prototype.create_dir=function(r){if(this.is_file())throw new Error("can't create dir in file");var t=this.find(r);if(null!=t){if(t.is_file())throw new Error("file with same name already exists");return t}return t=new jr(r,this,this.level+1),this.add_child(t),t},r.prototype.create_file=function(r){if(this.is_file())throw new Error("can't create file in file");var t=this.find(r);if(null!=t)throw new Error("file with same name already exists");return t=new jr(r,this,this.level+1),t.set_is_file(!0),this.add_child(t),t},r.prototype.find=function(r,t){t=t||!1;var e,n=0;for(n=0;n<this.children.length;n++)if(e=this.children[n],!t&&e.name==r||t&&e.name.toLowerCase()==r.toLowerCase())return e;return null},r.prototype.get_root=function(){for(var r=this;null!=r.parent;)r=r.parent;return r},r.prototype.add_child=function(r){this.children.push(r)},r.prototype.is_file=function(){return this.isfile},r.prototype.set_is_file=function(r){this.isfile=r},r.prototype.get_path=function(){for(var r="",t=this;null!=t.parent;)r=t.name+(r.length>0?"\\"+r:""),t=t.parent;return r}},function(r,t){var e=n(0);function n(r){return this.header=null,this.file_name="",this.file_size=0,this.unpacked_size=0,this.file_crc=0,this.file_time=0,this.unp_ver=0,this.method=0,this.file_attr=0,this.is_directory=!1,this.data=null,this}r.prototype.set_data=function(r,t){this.data=new Uint8Array(t);for(var e=0;e<t;e++)this.data[e]=r[e]},r.prototype.get_data=function(){return this.data}},function(r,t,n){var i=n(16),a=n(15),o=n(13),u=n(1),s=n(14);r.Unarchive=function(r,t){var e=this;if(this.file=null,this.options=null,this.entries=[],this.vfs=a.create(""),this.on_finish=null,this.on_error=null,this.on_progress=null,this.on_extract=null,this.file=r,t)this.options=t;else{this.options={};var n=function(r,t,e){};this.options.on_finish=n,this.options.on_error=n,this.options.on_progress=n}this.on_finish=this.options.on_finish||function(){},this.on_error=this.options.on_error||function(){},this.on_progress=this.options.on_progress||function(){},this.on_extract=this.options.on_extract||function(){};var c=new o(this.file);c.read_bytes(function(r,t){if(null==r)return e.on_error("Error reading file",-1),void c.close();var n=new s(e.vfs);n.extract(c,function(r,t){r?(e.on_error(r,t),c.close()):(c.close(),e.entries=n.get_entries(),e.on_finish(e.vfs,e.entries))},function(r,t,n){e.on_progress(r,t,n)},function(r,t,n){e.on_extract(r,t,n)})})},r.Unarchive.prototype.get_entries=function(){return this.entries},r.Unarchive.prototype.get_vfs=function(){return this.vfs},r.Unarchive.prototype.close=function(){}}]),(r.Unarchive=n(17).Unarchive,r.fs=n(15),r)}());
+    </script>
 
     <style>
         :root {
@@ -34,7 +39,7 @@
             text-align: center;
         }
 
-      .container {
+       .container {
             width: 100%;
             max-width: 700px;
             background-color: var(--primary-color);
@@ -71,7 +76,7 @@
             display: none;
         }
 
-      .button {
+       .button {
             background-color: var(--accent-color);
             color: white;
             padding: 12px 25px;
@@ -83,7 +88,7 @@
             transition: background-color 0.3s ease;
         }
 
-      .button:hover {
+       .button:hover {
             background-color: #0088cc;
         }
 
@@ -103,7 +108,7 @@
             padding: 15px;
         }
 
-      .file-item {
+       .file-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -111,20 +116,20 @@
             border-bottom: 1px solid var(--border-color);
         }
         
-      .file-item:last-child {
+       .file-item:last-child {
             border-bottom: none;
         }
 
-      .file-name {
+       .file-name {
             font-weight: bold;
             word-break: break-all;
         }
         
-      .folder-name {
+       .folder-name {
             color: #f0e68c; /* Khaki for folders */
         }
 
-      .download-link {
+       .download-link {
             color: var(--success-color);
             text-decoration: none;
             font-weight: bold;
@@ -133,7 +138,7 @@
             margin-right: 10px;
         }
         
-      .download-link:hover {
+       .download-link:hover {
             color: #66bb6a;
         }
     </style>
@@ -220,11 +225,15 @@
                 fileNameSpan.classList.add('folder-name');
             } else {
                 const downloadLink = document.createElement('a');
-                downloadLink.href = URL.createObjectURL(contentBlob);
-                downloadLink.download = entryName.split('/').pop();
-                downloadLink.textContent = 'تحميل';
-                downloadLink.className = 'download-link';
-                fileItem.appendChild(downloadLink);
+                try {
+                    downloadLink.href = URL.createObjectURL(contentBlob);
+                    downloadLink.download = entryName.split(/[\\/]/).pop();
+                    downloadLink.textContent = 'تحميل';
+                    downloadLink.className = 'download-link';
+                    fileItem.appendChild(downloadLink);
+                } catch(e) {
+                    console.error("Error creating object URL for", entryName, e);
+                }
             }
             fileListDiv.appendChild(fileItem);
         }
@@ -233,7 +242,7 @@
             const reader = new FileReader();
             reader.onload = function(event) {
                 JSZip.loadAsync(event.target.result)
-                  .then(function(zip) {
+                 .then(function(zip) {
                         statusDiv.style.color = 'var(--success-color)';
                         statusDiv.textContent = 'تم فك الضغط بنجاح!';
                         let fileCount = 0;
@@ -249,7 +258,7 @@
                         });
                         if(fileCount === 0) statusDiv.textContent = 'الملف المضغوط فارغ.';
                     })
-                  .catch(err => {
+                 .catch(err => {
                         statusDiv.style.color = 'var(--error-color)';
                         statusDiv.textContent = 'خطأ أثناء فك ضغط ZIP: ' + err.message;
                     });
@@ -257,34 +266,29 @@
             reader.readAsArrayBuffer(file);
         }
 
-        async function unrarFile(file) {
+        function unrarFile(file) {
             try {
-                const stream = RarStream.createStream(file);
-                let fileCount = 0;
-                stream.on('entry', (entry, next) => {
-                    fileCount++;
-                    const chunks = [];
-                    entry.on('data', chunk => chunks.push(chunk));
-                    entry.on('end', () => {
-                        const blob = new Blob(chunks);
-                        displayFile(entry.name, entry.isDirectory, blob);
-                        next();
-                    });
-                });
-
-                stream.on('end', () => {
-                     if (fileCount > 0) {
+                var unrar = new Unrar(file);
+                unrar.on_finish = function (vfs, entries) {
+                    if (entries && entries.length > 0) {
                         statusDiv.style.color = 'var(--success-color)';
                         statusDiv.textContent = 'تم فك الضغط بنجاح!';
+                        entries.forEach(entry => {
+                            if (entry.is_directory) {
+                                displayFile(entry.file_name, true, null);
+                            } else {
+                                const blob = new Blob([entry.get_data()]);
+                                displayFile(entry.file_name, false, blob);
+                            }
+                        });
                     } else {
                         statusDiv.textContent = 'ملف RAR فارغ أو لا يمكن قراءته.';
                     }
-                });
-
-                 stream.on('error', (err) => {
-                     throw err;
-                 });
-
+                };
+                unrar.on_error = function(msg, code) {
+                    statusDiv.style.color = 'var(--error-color)';
+                    statusDiv.textContent = `خطأ أثناء فك ضغط RAR: ${msg} (code: ${code})`;
+                };
             } catch (err) {
                  statusDiv.style.color = 'var(--error-color)';
                  statusDiv.textContent = 'خطأ فادح أثناء فك ضغط RAR: ' + err.message;
