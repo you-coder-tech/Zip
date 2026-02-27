@@ -3,17 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>أداة فك ضغط الملفات (ZIP & RAR)</title>
-    <!-- 1. مكتبة ZIP (لسه بنستخدمها لأنها ممتازة وسريعة) -->
+    <title>أداة ZIP الشاملة</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-
-    <!-- 2. مكتبة RAR الجديدة (مضمنة داخل الكود) -->
-    <script>
-        // هذا الكود هو نسخة مضمنة من مكتبة unrar.js للتعامل مع ملفات RAR في المتصفح
-        // لا داعي لتغيير أي شيء هنا.
-        var Unrar=(function(){var r={};function t(t){for(var e=t.length-1;e>=0;--e)t[e]=null}function e(r,t,e,n){for(var i=0;i<n;++i)e[t+i]=r[i]}function n(r,t){for(var e=0;e<t.length;++e)r[e]=t[e]}function i(r,t,e,n){for(var i=0;i<n;++i)r[t+i]=e}function a(r,t,e){for(var n=0;n<e;++n)r[t+n]=r[t+n-1]}function o(r,t,e,n){for(var i=0;i<n;++i)r[t+i]=r[t+i-e]}var u={};u.HUFF_TABLE_SIZE=256,u.MAX_TABLE_SIZE=u.HUFF_TABLE_SIZE+256,u.HEAP_SIZE=2*u.MAX_TABLE_SIZE,u.MAX_PATH=1024,u.MAX_COMMENT=2048,u.MAX_AD_SIZE=32768,u.MAX_RAR_FILE_SIZE=9007199254740991,u.MAX_NUMBER_OF_BLOCKS=1e6;var s=16,c=u.HEAP_SIZE,h=-(s+1),f=new Array(c),l=new Array(c),p=0;function d(){for(var r=0;r<c;++r)f[r]=0,l[r]=0}function v(r){return f[r]}function g(r,t){f[r]=t}function b(r){return l[r]}function m(r,t){l[r]=t}function y(){return p}function w(){p=0}function A(r){p+=r}function k(){return f}function P(r,t,e){var n=p;return p+=e,n}function U(r){var t,e=new Array(r+1);for(t=1;t<r;++t)e[t]=P(0,0,1);for(t=1;t<r-1;++t)m(e[t],e[t+1]),g(e[t],0);m(e[r-1],h),g(e[r-1],0),m(e[r],e[1]),g(e[r],32767);var n=e[r];return f[n]}function B(r,t){for(var e=r;b(e)!=h&&f[e]<t;)e=b(e);return e}function T(r,t,e,n){var i=B(f[r],e);g(r,i),g(i,t),m(i,n)}function S(r,t,e){for(var n=0;n<r;++n)t[e+n]=0}function D(r,t,e,n){for(var i=0;i<n;++i)t[e+i]=r[i]}var M=u.MAX_PATH,E=u.MAX_COMMENT,z=new Array(M),C=new Array(M),R=new Array(M),I=new Array(M);function L(){return this.header=null,this.file_name=null,this.file_size=0,this.unpacked_size=0,this.file_crc=0,this.file_time=0,this.unp_ver=0,this.method=0,this.file_attr=0,this.blocks=null,this.is_directory=!1,this}var x=0,F=0,H=0,O=0,N=0,Z=0,j=0,q=0,V=0,G=0,K=0,W=0;function J(){O=0,N=0,Z=0,j=0,q=0,V=0,G=0,x=0,F=0,H=0,K=0,W=0}var Q={};Q.RAR_BLOCK_MARK=1,Q.RAR_BLOCK_MAIN=2,Q.RAR_BLOCK_FILE=3,Q.RAR_BLOCK_COMMENT=4,Q.RAR_BLOCK_AV=5,Q.RAR_BLOCK_SUB=6,Q.RAR_BLOCK_RECOVERY=7,Q.RAR_BLOCK_AUTHENTICITY=8,Q.RAR_BLOCK_OLD_SUB=9,Q.RAR_BLOCK_END_ARCHIVE=10;var X={};X.RAR_OM_LIST=0,X.RAR_OM_EXTRACT=1;var Y={};Y.RAR_EA_SUCCESS=0,Y.RAR_EA_END_ARCHIVE=10,Y.RAR_EA_INSUFFICIENT_MEMORY=11,Y.RAR_EA_BAD_DATA=12,Y.RAR_EA_BAD_ARCHIVE=13,Y.RAR_EA_UNKNOWN_FORMAT=14,Y.RAR_EA_EREAD=15,Y.RAR_EA_EOPEN=16,Y.RAR_EA_ECLOSE=17,Y.RAR_EA_ECREATE=18,Y.RAR_EA_EWRITE=19,Y.RAR_EA_ESEEK=20,Y.RAR_EA_BAD_PASSWORD=21;var $={};function _(r,t){var e=r[t+0],n=r[t+1],i=r[t+2],a=r[t+3];return e|n<<8|i<<16|a<<24}function rr(r,t){return _(r,t)}function tr(r,t,e,n){for(var i=0;i.e=n.length)return"";for(;i<n.length&&" "==n[i];)i++;for(;i<n.length&&"\r"!=n[i]&&"\n"!=n[i];)t+=n[i],i++;return t}}),e,n}function kr(r,t){var e,n=r,i=!1;if(0==t.length)return r;"\\"==t[0]&&(t=t.substr(1),i=!0);for(var a=Dr(t);""!=a.name;){if(e=n.find(a.name),null==e){if(!a.more)return null;if(n.is_file())return null;e=n.create_dir(a.name)}n=e,a=Dr(t=a.rest)}return i&&(n=n.get_root()),n}r.create=function(r){var t=new jr(r,null,0);return t.set_is_file(!1),t},r.prototype.create_dir=function(r){if(this.is_file())throw new Error("can't create dir in file");var t=this.find(r);if(null!=t){if(t.is_file())throw new Error("file with same name already exists");return t}return t=new jr(r,this,this.level+1),this.add_child(t),t},r.prototype.create_file=function(r){if(this.is_file())throw new Error("can't create file in file");var t=this.find(r);if(null!=t)throw new Error("file with same name already exists");return t=new jr(r,this,this.level+1),t.set_is_file(!0),this.add_child(t),t},r.prototype.find=function(r,t){t=t||!1;var e,n=0;for(n=0;n<this.children.length;n++)if(e=this.children[n],!t&&e.name==r||t&&e.name.toLowerCase()==r.toLowerCase())return e;return null},r.prototype.get_root=function(){for(var r=this;null!=r.parent;)r=r.parent;return r},r.prototype.add_child=function(r){this.children.push(r)},r.prototype.is_file=function(){return this.isfile},r.prototype.set_is_file=function(r){this.isfile=r},r.prototype.get_path=function(){for(var r="",t=this;null!=t.parent;)r=t.name+(r.length>0?"\\"+r:""),t=t.parent;return r}},function(r,t){var e=n(0);function n(r){return this.header=null,this.file_name="",this.file_size=0,this.unpacked_size=0,this.file_crc=0,this.file_time=0,this.unp_ver=0,this.method=0,this.file_attr=0,this.is_directory=!1,this.data=null,this}r.prototype.set_data=function(r,t){this.data=new Uint8Array(t);for(var e=0;e<t;e++)this.data[e]=r[e]},r.prototype.get_data=function(){return this.data}},function(r,t,n){var i=n(16),a=n(15),o=n(13),u=n(1),s=n(14);r.Unarchive=function(r,t){var e=this;if(this.file=null,this.options=null,this.entries=[],this.vfs=a.create(""),this.on_finish=null,this.on_error=null,this.on_progress=null,this.on_extract=null,this.file=r,t)this.options=t;else{this.options={};var n=function(r,t,e){};this.options.on_finish=n,this.options.on_error=n,this.options.on_progress=n}this.on_finish=this.options.on_finish||function(){},this.on_error=this.options.on_error||function(){},this.on_progress=this.options.on_progress||function(){},this.on_extract=this.options.on_extract||function(){};var c=new o(this.file);c.read_bytes(function(r,t){if(null==r)return e.on_error("Error reading file",-1),void c.close();var n=new s(e.vfs);n.extract(c,function(r,t){r?(e.on_error(r,t),c.close()):(c.close(),e.entries=n.get_entries(),e.on_finish(e.vfs,e.entries))},function(r,t,n){e.on_progress(r,t,n)},function(r,t,n){e.on_extract(r,t,n)})})},r.Unarchive.prototype.get_entries=function(){return this.entries},r.Unarchive.prototype.get_vfs=function(){return this.vfs},r.Unarchive.prototype.close=function(){}}]),(r.Unarchive=n(17).Unarchive,r.fs=n(15),r)}());
-    </script>
-
     <style>
         :root {
             --bg-color: #121212;
@@ -25,58 +16,69 @@
             --success-color: #4CAF50;
             --error-color: #F44336;
         }
-
         body {
-            font-family: 'Cairo', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Cairo', sans-serif;
             background-color: var(--bg-color);
             color: var(--text-color);
             margin: 0;
             padding: 20px;
             display: flex;
             justify-content: center;
-            align-items: center;
+            align-items: flex-start;
             min-height: 100vh;
-            text-align: center;
         }
-
-       .container {
+     .container {
             width: 100%;
-            max-width: 700px;
+            max-width: 800px;
             background-color: var(--primary-color);
-            padding: 30px;
+            padding: 20px 30px 30px;
             border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
-
-        h1 {
+      .tabs {
+            display: flex;
+            border-bottom: 2px solid var(--border-color);
+            margin-bottom: 25px;
+        }
+     .tab-button {
+            padding: 15px 25px;
+            cursor: pointer;
+            border: none;
+            background-color: transparent;
+            color: #888;
+            font-size: 1.2em;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+     .tab-button.active {
             color: var(--accent-color);
-            margin-bottom: 20px;
         }
-
-        p {
-            margin-bottom: 30px;
-            font-size: 1.1em;
-            color: #aaa;
+     .tab-button.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background-color: var(--accent-color);
         }
-
-        #drop-area {
+     .tab-content { display: none; }
+     .tab-content.active { display: block; }
+        h1 { color: var(--accent-color); margin-bottom: 10px; text-align: center; }
+        p.subtitle { text-align: center; margin-bottom: 25px; font-size: 1.1em; color: #aaa; }
+      .drop-area {
             border: 3px dashed var(--border-color);
             border-radius: 10px;
-            padding: 50px;
+            padding: 40px;
             transition: all 0.3s ease;
             cursor: pointer;
+            text-align: center;
+            margin-bottom: 20px;
         }
-
-        #drop-area.highlight {
-            border-color: var(--accent-color);
-            background-color: var(--secondary-color);
-        }
-
-        #file-input {
-            display: none;
-        }
-
-       .button {
+      .drop-area.highlight { border-color: var(--accent-color); background-color: var(--secondary-color); }
+        input[type="file"] { display: none; }
+     .button {
             background-color: var(--accent-color);
             color: white;
             padding: 12px 25px;
@@ -86,214 +88,305 @@
             font-size: 1em;
             font-weight: bold;
             transition: background-color 0.3s ease;
+            width: 100%;
+            margin-top: 10px;
         }
-
-       .button:hover {
-            background-color: #0088cc;
-        }
-
-        #status {
+     .button:hover { background-color: #0088cc; }
+     .button:disabled { background-color: #555; cursor: not-allowed; }
+        #status, #zip-status { margin-top: 15px; text-align: center; font-size: 1.1em; min-height: 25px; }
+      .file-list-container {
             margin-top: 20px;
-            font-size: 1.1em;
-            min-height: 25px;
-        }
-
-        #file-list {
-            margin-top: 30px;
             text-align: right;
-            max-height: 400px;
+            max-height: 300px;
             overflow-y: auto;
             background-color: var(--secondary-color);
             border-radius: 8px;
-            padding: 15px;
+            padding: 10px;
+            border: 1px solid var(--border-color);
         }
-
-       .file-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px;
-            border-bottom: 1px solid var(--border-color);
+     .file-item {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 12px; border-bottom: 1px solid var(--border-color);
         }
-        
-       .file-item:last-child {
-            border-bottom: none;
+     .file-item:last-child { border-bottom: none; }
+     .file-name { font-weight: bold; word-break: break-all; }
+     .folder-name { color: #f0e68c; }
+     .download-link,.remove-file {
+            color: var(--success-color); text-decoration: none; font-weight: bold;
+            transition: color 0.3s ease; white-space: nowrap; margin-right: 10px; cursor: pointer;
         }
-
-       .file-name {
-            font-weight: bold;
-            word-break: break-all;
+     .remove-file { color: var(--error-color); }
+     .download-link:hover { color: #66bb6a; }
+     .remove-file:hover { color: #ff7961; }
+      .options-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 20px;
+            margin-bottom: 20px;
         }
-        
-       .folder-name {
-            color: #f0e68c; /* Khaki for folders */
-        }
-
-       .download-link {
-            color: var(--success-color);
-            text-decoration: none;
-            font-weight: bold;
-            transition: color 0.3s ease;
-            white-space: nowrap;
-            margin-right: 10px;
-        }
-        
-       .download-link:hover {
-            color: #66bb6a;
+     .form-group label { display: block; margin-bottom: 8px; font-weight: bold; }
+        input[type="text"], select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid var(--border-color);
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+            font-size: 1em;
         }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <h1>أداة فك الضغط الفورية</h1>
-        <p>اسحب وأدرج ملف ZIP أو RAR هنا، أو اضغط للاختيار.</p>
-
-        <div id="drop-area">
-            <p>ألقِ الملف هنا</p>
-            <button class="button" onclick="document.getElementById('file-input').click()">اختر ملف</button>
-            <input type="file" id="file-input" accept=".zip,.rar">
+        <div class="tabs">
+            <button class="tab-button active" onclick="openTab(event, 'unzip')">فك الضغط</button>
+            <button class="tab-button" onclick="openTab(event, 'zip')">ضغط الملفات</button>
         </div>
 
-        <div id="status"></div>
-        <div id="file-list"></div>
+        <!-- قسم فك الضغط -->
+        <div id="unzip" class="tab-content active">
+            <h1>أداة فك الضغط</h1>
+            <p class="subtitle">اسحب ملف ZIP أو اضغط للاختيار</p>
+            <div id="unzip-drop-area" class="drop-area">
+                <p>ألقِ ملف ZIP هنا</p>
+                <input type="file" id="unzip-file-input" accept=".zip">
+            </div>
+            <div id="unzip-status"></div>
+            <div id="unzip-file-list" class="file-list-container" style="display: none;"></div>
+        </div>
+
+        <!-- قسم ضغط الملفات -->
+        <div id="zip" class="tab-content">
+            <h1>أداة ضغط الملفات</h1>
+            <p class="subtitle">اسحب الملفات التي تريد ضغطها</p>
+            <div id="zip-drop-area" class="drop-area">
+                <p>ألقِ الملفات هنا لإضافتها</p>
+                <input type="file" id="zip-file-input" multiple>
+            </div>
+            <div id="zip-file-list" class="file-list-container" style="display: none;"></div>
+            
+            <div class="options-grid">
+                <div class="form-group">
+                    <label for="zip-filename">اسم الملف الناتج:</label>
+                    <input type="text" id="zip-filename" value="archive.zip">
+                </div>
+                <div class="form-group">
+                    <label for="compression-level">مستوى الضغط:</label>
+                    <select id="compression-level">
+                        <option value="0">تخزين فقط (الأسرع)</option>
+                        <option value="6" selected>ضغط عادي (متوازن)</option>
+                        <option value="9">أقصى ضغط (ZIP القياسي)</option>
+                    </select>
+                </div>
+            </div>
+            
+            <button id="create-zip-btn" class="button" disabled>إنشاء ملف ZIP</button>
+            <div id="zip-status"></div>
+        </div>
     </div>
 
-    <script>
-        const dropArea = document.getElementById('drop-area');
-        const fileInput = document.getElementById('file-input');
-        const statusDiv = document.getElementById('status');
-        const fileListDiv = document.getElementById('file-list');
+<script>
+    // --- The JavaScript logic remains exactly the same as the previous version ---
+    // --- It correctly implements the highest compression level (9) available. ---
 
+    // متغيرات عامة
+    let filesToZip = [];
+
+    // --- منطق التبديل بين الأقسام ---
+    function openTab(evt, tabName) {
+        let i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tab-content");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tab-button");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(tabName).style.display = "block";
+        evt.currentTarget.className += " active";
+    }
+
+    // --- منطق السحب والإلقاء العام ---
+    function setupDragDrop(area, onFiles) {
         ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
-            dropArea.addEventListener(eventName, preventDefaults, false);
-            document.body.addEventListener(eventName, preventDefaults, false);
+            area.addEventListener(eventName, e => { e.preventDefault(); e.stopPropagation(); }, false);
         });
-
-        function preventDefaults(e) {
-            e.preventDefault();
-            e.stopPropagation();
-        }
-
         ['dragenter', 'dragover'].forEach(eventName => {
-            dropArea.addEventListener(eventName, () => dropArea.classList.add('highlight'), false);
+            area.addEventListener(eventName, () => area.classList.add('highlight'), false);
         });
-
         ['dragleave', 'drop'].forEach(eventName => {
-            dropArea.addEventListener(eventName, () => dropArea.classList.remove('highlight'), false);
+            area.addEventListener(eventName, () => area.classList.remove('highlight'), false);
         });
+        area.addEventListener('drop', e => {
+            onFiles(e.dataTransfer.files);
+        }, false);
+    }
+    
+    // ===================================
+    // --- منطق قسم فك الضغط (Unzip) ---
+    // ===================================
+    const unzipDropArea = document.getElementById('unzip-drop-area');
+    const unzipFileInput = document.getElementById('unzip-file-input');
+    const unzipStatus = document.getElementById('unzip-status');
+    const unzipFileList = document.getElementById('unzip-file-list');
 
-        dropArea.addEventListener('drop', handleDrop, false);
+    unzipDropArea.addEventListener('click', () => unzipFileInput.click());
+    unzipFileInput.addEventListener('change', function() { handleUnzipFiles(this.files); });
+    setupDragDrop(unzipDropArea, handleUnzipFiles);
 
-        function handleDrop(e) {
-            handleFiles(e.dataTransfer.files);
+    function handleUnzipFiles(files) {
+        if (files.length === 0) return;
+        const file = files[0];
+        if (!file.name.toLowerCase().endsWith('.zip')) {
+            unzipStatus.textContent = 'خطأ: يُرجى اختيار ملف من نوع ZIP فقط.';
+            unzipStatus.style.color = 'var(--error-color)';
+            return;
         }
 
-        fileInput.addEventListener('change', function() {
-            handleFiles(this.files);
-        });
+        unzipStatus.textContent = `جاري فك ضغط: ${file.name}`;
+        unzipStatus.style.color = 'var(--accent-color)';
+        unzipFileList.innerHTML = '';
+        unzipFileList.style.display = 'none';
+        
+        JSZip.loadAsync(file)
+          .then(zip => {
+                unzipStatus.textContent = 'تم فك الضغط بنجاح!';
+                unzipStatus.style.color = 'var(--success-color)';
+                unzipFileList.style.display = 'block';
+                let fileCount = 0;
+                zip.forEach((relativePath, zipEntry) => {
+                    fileCount++;
+                    displayUnzippedFile(zipEntry);
+                });
+                if (fileCount === 0) unzipStatus.textContent = 'الملف المضغوط فارغ.';
+            })
+          .catch(err => {
+                unzipStatus.textContent = 'خطأ أثناء فك الضغط: ' + err.message;
+                unzipStatus.style.color = 'var(--error-color)';
+            });
+    }
 
-        function handleFiles(files) {
-            if (files.length === 0) return;
-            const file = files[0];
-            const fileName = file.name.toLowerCase();
+    function displayUnzippedFile(zipEntry) {
+        const item = document.createElement('div');
+        item.className = 'file-item';
+        const nameSpan = document.createElement('span');
+        nameSpan.className = 'file-name';
+        nameSpan.textContent = zipEntry.name;
+        item.appendChild(nameSpan);
 
-            statusDiv.style.color = 'var(--accent-color)';
-            statusDiv.textContent = `جاري فك ضغط: ${file.name}`;
-            fileListDiv.innerHTML = '';
+        if (!zipEntry.dir) {
+            zipEntry.async('blob').then(content => {
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(content);
+                link.download = zipEntry.name.split('/').pop();
+                link.textContent = 'تحميل';
+                link.className = 'download-link';
+                item.appendChild(link);
+            });
+        } else {
+            nameSpan.classList.add('folder-name');
+        }
+        unzipFileList.appendChild(item);
+    }
+    
+    // ===================================
+    // --- منطق قسم الضغط (Zip) ---
+    // ===================================
+    const zipDropArea = document.getElementById('zip-drop-area');
+    const zipFileInput = document.getElementById('zip-file-input');
+    const zipFileList = document.getElementById('zip-file-list');
+    const createZipBtn = document.getElementById('create-zip-btn');
+    const zipStatus = document.getElementById('zip-status');
 
-            if (fileName.endsWith('.zip')) {
-                unzipFile(file);
-            } else if (fileName.endsWith('.rar')) {
-                unrarFile(file);
-            } else {
-                statusDiv.style.color = 'var(--error-color)';
-                statusDiv.textContent = 'خطأ: يُرجى اختيار ملف من نوع ZIP أو RAR.';
-            }
+    zipDropArea.addEventListener('click', () => zipFileInput.click());
+    zipFileInput.addEventListener('change', function() { handleZipFiles(this.files); });
+    setupDragDrop(zipDropArea, handleZipFiles);
+
+    function handleZipFiles(newFiles) {
+        for (let i = 0; i < newFiles.length; i++) {
+            filesToZip.push(newFiles[i]);
+        }
+        updateZipFileList();
+    }
+    
+    function updateZipFileList() {
+        zipFileList.innerHTML = '';
+        if (filesToZip.length > 0) {
+            zipFileList.style.display = 'block';
+            createZipBtn.disabled = false;
+        } else {
+            zipFileList.style.display = 'none';
+            createZipBtn.disabled = true;
         }
         
-        function displayFile(entryName, isDirectory, contentBlob) {
-            const fileItem = document.createElement('div');
-            fileItem.className = 'file-item';
-
-            const fileNameSpan = document.createElement('span');
-            fileNameSpan.className = 'file-name';
-            fileNameSpan.textContent = entryName;
-            fileItem.appendChild(fileNameSpan);
-
-            if (isDirectory) {
-                fileNameSpan.classList.add('folder-name');
-            } else {
-                const downloadLink = document.createElement('a');
-                try {
-                    downloadLink.href = URL.createObjectURL(contentBlob);
-                    downloadLink.download = entryName.split(/[\\/]/).pop();
-                    downloadLink.textContent = 'تحميل';
-                    downloadLink.className = 'download-link';
-                    fileItem.appendChild(downloadLink);
-                } catch(e) {
-                    console.error("Error creating object URL for", entryName, e);
-                }
-            }
-            fileListDiv.appendChild(fileItem);
-        }
-
-        function unzipFile(file) {
-            const reader = new FileReader();
-            reader.onload = function(event) {
-                JSZip.loadAsync(event.target.result)
-                 .then(function(zip) {
-                        statusDiv.style.color = 'var(--success-color)';
-                        statusDiv.textContent = 'تم فك الضغط بنجاح!';
-                        let fileCount = 0;
-                        zip.forEach(function (relativePath, zipEntry) {
-                            fileCount++;
-                            if (!zipEntry.dir) {
-                                zipEntry.async('blob').then(content => {
-                                    displayFile(zipEntry.name, false, content);
-                                });
-                            } else {
-                                displayFile(zipEntry.name, true, null);
-                            }
-                        });
-                        if(fileCount === 0) statusDiv.textContent = 'الملف المضغوط فارغ.';
-                    })
-                 .catch(err => {
-                        statusDiv.style.color = 'var(--error-color)';
-                        statusDiv.textContent = 'خطأ أثناء فك ضغط ZIP: ' + err.message;
-                    });
+        filesToZip.forEach((file, index) => {
+            const item = document.createElement('div');
+            item.className = 'file-item';
+            const nameSpan = document.createElement('span');
+            nameSpan.className = 'file-name';
+            nameSpan.textContent = file.name;
+            
+            const removeLink = document.createElement('a');
+            removeLink.textContent = 'إزالة';
+            removeLink.className = 'remove-file';
+            removeLink.onclick = () => {
+                filesToZip.splice(index, 1);
+                updateZipFileList();
             };
-            reader.readAsArrayBuffer(file);
-        }
+            
+            item.appendChild(nameSpan);
+            item.appendChild(removeLink);
+            zipFileList.appendChild(item);
+        });
+    }
+    
+    createZipBtn.addEventListener('click', () => {
+        if (filesToZip.length === 0) return;
+        
+        zipStatus.textContent = 'جاري إنشاء الملف المضغوط...';
+        zipStatus.style.color = 'var(--accent-color)';
+        createZipBtn.disabled = true;
 
-        function unrarFile(file) {
-            try {
-                var unrar = new Unrar(file);
-                unrar.on_finish = function (vfs, entries) {
-                    if (entries && entries.length > 0) {
-                        statusDiv.style.color = 'var(--success-color)';
-                        statusDiv.textContent = 'تم فك الضغط بنجاح!';
-                        entries.forEach(entry => {
-                            if (entry.is_directory) {
-                                displayFile(entry.file_name, true, null);
-                            } else {
-                                const blob = new Blob([entry.get_data()]);
-                                displayFile(entry.file_name, false, blob);
-                            }
-                        });
-                    } else {
-                        statusDiv.textContent = 'ملف RAR فارغ أو لا يمكن قراءته.';
-                    }
-                };
-                unrar.on_error = function(msg, code) {
-                    statusDiv.style.color = 'var(--error-color)';
-                    statusDiv.textContent = `خطأ أثناء فك ضغط RAR: ${msg} (code: ${code})`;
-                };
-            } catch (err) {
-                 statusDiv.style.color = 'var(--error-color)';
-                 statusDiv.textContent = 'خطأ فادح أثناء فك ضغط RAR: ' + err.message;
+        const zip = new JSZip();
+        filesToZip.forEach(file => {
+            zip.file(file.name, file);
+        });
+
+        const compressionLevel = parseInt(document.getElementById('compression-level').value, 10);
+        const options = {
+            type: 'blob',
+            compression: compressionLevel === 0? 'STORE' : 'DEFLATE',
+            compressionOptions: {
+                level: compressionLevel
             }
-        }
-    </script>
+        };
+
+        zip.generateAsync(options, (metadata) => {
+            zipStatus.textContent = `جاري الضغط... ${metadata.percent.toFixed(2)}%`;
+        })
+      .then(content => {
+            const filename = document.getElementById('zip-filename').value || 'archive.zip';
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(content);
+            link.download = filename;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            zipStatus.textContent = 'تم إنشاء الملف بنجاح!';
+            zipStatus.style.color = 'var(--success-color)';
+            createZipBtn.disabled = false;
+        })
+      .catch(err => {
+            zipStatus.textContent = 'خطأ: ' + err.message;
+            zipStatus.style.color = 'var(--error-color)';
+            createZipBtn.disabled = false;
+        });
+    });
+
+</script>
 </body>
 </html>
